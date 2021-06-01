@@ -1,5 +1,6 @@
 package com.example.classbdemo.servicesImpl;
 
+import com.example.classbdemo.services.IMarkService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.classbdemo.dto.CreateMarkDTO;
@@ -7,9 +8,8 @@ import com.example.classbdemo.model.Course;
 import com.example.classbdemo.model.Mark;
 import com.example.classbdemo.model.Student;
 import com.example.classbdemo.repositories.MarkRepository;
-import com.example.classbdemo.services.IMarkServices;
 
-public class MarkServiceImpl implements IMarkServices {
+public class MarkServiceImpl implements IMarkService {
 
 	
 	@Autowired
