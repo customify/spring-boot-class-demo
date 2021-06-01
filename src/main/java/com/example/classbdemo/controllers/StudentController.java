@@ -42,7 +42,7 @@ public class StudentController {
     @PostMapping
     public ResponseEntity<?> save(@Valid @RequestBody Student student){
 
-        if(studentRepository.findById(student.getId())!=null){
+        if(studentRepository.findById(student.getId())==null){
             return ResponseEntity.status(HttpStatus.CREATED).body(studentRepository.findById(student.getId()));
         }
         studentRepository.save(student);
