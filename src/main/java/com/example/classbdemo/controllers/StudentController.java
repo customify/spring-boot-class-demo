@@ -71,7 +71,7 @@ public class StudentController {
 
     //Delete course by ID
     @DeleteMapping("/{id}")
-    public void deleteCourseById(@PathVariable Long id){
+    public void deleteStudentById(@PathVariable Long id){
         studentRepository.deleteById(id);
     }
 }
