@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.example.classbdemo.services.IMarkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,6 @@ import com.example.classbdemo.model.Student;
 import com.example.classbdemo.repositories.CourseRepository;
 import com.example.classbdemo.repositories.MarkRepository;
 import com.example.classbdemo.repositories.StudentRepository;
-import com.example.classbdemo.services.IMarkServices;
 import com.example.classbdemo.utils.APIResponse;
 
 @RestController
@@ -38,9 +38,8 @@ public class MarkController {
 	
 	@Autowired
 	private CourseRepository courseRepository;
-	
-	@Autowired
-	private IMarkServices markService;
+
+	private IMarkService markService;
 
 	@GetMapping
 	public List<Mark> getAll() {
