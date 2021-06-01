@@ -9,12 +9,7 @@ import com.example.classbdemo.services.IMarkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.classbdemo.dto.CreateMarkDTO;
 import com.example.classbdemo.model.Course;
@@ -72,5 +67,39 @@ public class MarkController {
 		}
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(markService.save(dto, student.get(), course.get()));
+	}
+
+	//Update mark by Id
+	@PutMapping("{id}")
+	public ResponseEntity<Mark> updateMarkById(@PathVariable Long id, @RequestBody CreateMarkDTO markDTO){
+		Optional<Mark> MarkData = markRepository.findById(id);
+		Optional<Course> course = courseRepository.findById(markDTO.getCourseId());
+		if(!course.isPresent()) {
+			ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new APIResponse("Course not found", false));
+		}
+		Optional<Student> student = StudentRepository.findById(markDTO.getStudentId());
+
+		if(!student.isPresent()) {
+			ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new APIResponse("Student not found", false));
+		}
+
+		if(MarkData.isPresent()){
+			Mark _mark = MarkData.get();
+			_mark.setStudent(student.get());
+			_mark.setCourse(course.get());
+			_mark.setScored(markDTO.getScored());
+			_mark.setMax(markDTO.getMax());
+
+			return new ResponseEntity<>(markRepository.save(_mark),HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+
+	//Delete mark by ID
+	@DeleteMapping("/{id}")
+	public void deleteMarkById(@PathVariable Long id){
+		markRepository.deleteById(id);
 	}
 }

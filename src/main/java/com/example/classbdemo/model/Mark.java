@@ -8,6 +8,8 @@ import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
 
+import java.util.Optional;
+
 @Entity
 @Table(name="marks")
 public class Mark {
