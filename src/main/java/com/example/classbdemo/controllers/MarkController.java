@@ -96,4 +96,10 @@ public class MarkController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+
+	//Delete mark by ID
+	@DeleteMapping("/{id}")
+	public void deleteMarkById(@PathVariable Long id){
+		markRepository.deleteById(id);
+	}
 }
