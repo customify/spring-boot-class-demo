@@ -39,7 +39,6 @@ public class MarkController {
 	@Autowired
 	private CourseRepository courseRepository;
 	
-	@Autowired
 	private IMarkServices markService;
 
 	@GetMapping
